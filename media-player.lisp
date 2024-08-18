@@ -1,8 +1,19 @@
 
 (uiop:define-package :media-player
-    (:use :cl))
+    (:use :cl)
+  (:export
+   #:*player*
+   #:ensure-top-level-player
+   #:player
+   #:play
+   #:stop
+   #:toggle-play/pause))
 
 (in-package :media-player)
+
+;; TODO: .asd
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (ql:quickload "str"))
 
 (defvar *player* nil
   "top-level player. We can also use more than one player instance.")
@@ -20,9 +31,6 @@
 ;; We should have them with *earmuffs* though.
 (defmacro defcustom (name val doc &body rest)
   (declare (ignore rest))
-  `(defparameter ,name ,val ,doc))
-
-(defmacro defvar-local (name val doc)
   `(defparameter ,name ,val ,doc))
 
 ;;;
@@ -76,8 +84,6 @@ for configuration."
   :group 'play-mode
   :type '(choice (function :tag "Function")
                  (repeat (string :tag "String"))))
-
-(defparameter *process* nil "Media-playing process.")
 
 (defparameter *metadata* nil "Metadata as per ffprobe.")
 
