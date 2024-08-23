@@ -7,7 +7,6 @@
 (toggle-play/pause #<PLAYER {}>)
 ```
 
-This works in Slime but not on a default SBCL REPL nor in Lem :(
 
 ## dev
 
