@@ -127,10 +127,12 @@ for configuration."
   (unless (equal (type-of player) 'player)
     (setf player (make-instance 'player)))
 
+  (print player)
+
   ;; Play!
   (with-accessors ((p process)) player
     ;; but stop the current process if it's alive.
-    (when (uiop:process-alive-p p)
+    (when (and p (uiop:process-alive-p p))
       (stop player))
     ;; If we get a pathname, get the file name as string.
     (setf p (uiop:launch-program (mpv-command (uiop:native-namestring file)))))
