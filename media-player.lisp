@@ -119,6 +119,9 @@ for configuration."
 
     (play \"/path/to/file.mp3\" (make-instance 'player))  ;; => #<PLAYER {b}>
 
+  then:
+
+     (stop *player-object*)
 
   See also:
 
@@ -153,12 +156,15 @@ for configuration."
 
 (defun toggle-pause (player)
   (send-command "'{ \"command\": [\"cycle\", \"pause\"] }'"
-                player))
+                player)
+  player)
 
 (defun quit (player)
   (send-command "'{ \"command\": [\"quit\"] }'"
-                player))
+                player)
+  player)
 
 (defun stop (player)
   (send-command "'{ \"command\": [\"stop\"] }'"
-                player))
+                player)
+  player)
