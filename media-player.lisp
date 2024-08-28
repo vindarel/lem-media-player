@@ -130,7 +130,8 @@ for configuration."
   (unless (equal (type-of player) 'player)
     (setf player (make-instance 'player)))
 
-  (print player)
+  ;; warn: print makes the command error-out in Lem.
+  ;;(print player)
 
   ;; Play!
   (with-accessors ((p process)) player

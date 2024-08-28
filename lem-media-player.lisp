@@ -6,11 +6,10 @@
 (in-package :lem/media-player)
 
 
-(define-major-mode mediaplayer-mode ()
+ (define-major-mode mediaplayer-mode nil
     (:name "mediaplaer"
      :syntax-table nil
      :keymap *mediaplayer-mode-keymap*)
-  ;; config here.
   )
 
 (define-command media-player-play () ()
