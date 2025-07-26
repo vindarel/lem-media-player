@@ -8,6 +8,8 @@
    #:play
    #:stop
    #:toggle-pause
+   #:playlist-next
+   #:playlist-previous
    #:supported-audio-and-video))
 
 (in-package :media-player)
@@ -127,10 +129,7 @@ for configuration."
 
   See also:
 
-    TOGGLE-PLAY/PAUSE, STOP, QUIT."
-  ;; Ensure we have a player object
-  (unless (equal (type-of player) 'player)
-    (setf player (make-instance 'player)))
+    TOGGLE-PLAY/PAUSE, STOP, QUIT, PLAYLIST-NEXT/PREVIOUS."
 
   ;; warn: print makes the command error-out in Lem.
   ;;(print player)
@@ -168,4 +167,11 @@ for configuration."
 (defun stop (&optional (player (ensure-player)))
   (send-command "'{ \"command\": [\"stop\"] }'" player)
   player)
+
+(defun playlist-next (&optional (player (ensure-player)))
+  (send-command "'{\"command\": [\"playlist-next\"] }'" player)
+  player)
+
+(defun playlist-previous (&optional (player (ensure-player)))
+  (send-command "'{\"command\": [\"playlist-prev\"] }'" player)
   player)

@@ -26,3 +26,10 @@
 (define-command media-player-play-directory (dir) ((:file "Play this directory: "))
   "Play all media files in a directory."
   (play dir))
+
+(define-command media-player-next () ()
+  (playlist-next))
+
+(define-command media-player-previous () ()
+  (playlist-previous))
+
