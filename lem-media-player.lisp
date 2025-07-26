@@ -19,3 +19,6 @@
 
 (define-command media-player-toggle () ()
   (toggle-pause))
+
+(define-command media-player-stop () ()
+  (stop))
