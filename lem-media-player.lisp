@@ -22,3 +22,7 @@
 
 (define-command media-player-stop () ()
   (stop))
+
+(define-command media-player-play-directory (dir) ((:file "Play this directory: "))
+  "Play all media files in a directory."
+  (play dir))
