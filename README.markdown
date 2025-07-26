@@ -15,6 +15,7 @@ With Lem's GUI, right click on a file (in directory mode) and click play.
 Available commands (with M-x):
 
 - media-player-play (on a file in directory mode)
+- media-player-play-directory (asks for a directory)
 - media-player-toggle: toggle play/pause
 - media-player-next/previous: play next or previous file.
 - media-player-stop
