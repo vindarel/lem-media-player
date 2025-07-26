@@ -1,6 +1,9 @@
 
 A simple media player for Lem, built on `mpv`.
 
+> [!NOTE]
+> Proof Of Concept
+
 ## Installation
 
 You must install the `mpv` player and the `socat` library.
@@ -16,16 +19,22 @@ Available commands (with M-x):
 - media-player-next/previous: play next or previous file.
 - media-player-stop
 
+When enabling `media-player-mode`, right click anywhere to get a
+context menu with player controls.
+
+![](gui-controls.png "media player controls anywhere")
+
 
 ## From Common Lisp
-
 
 ```lisp
 (play "/path/to/file.mp3")
 ;; => #<PLAYER {}>
 
-(toggle-play/pause #<PLAYER {}>)  ;; *player* instance
+(toggle-play/pause)
 ```
+
+NB: all functions in `media-player.lisp` don't depend on Lem.
 
 
 ## dev

@@ -30,7 +30,6 @@
 ;;; parameters
 ;;;
 
-;; DEVEL: we might not use these params yet, we copied ready-player ;)
 (defparameter *supported-video*
   '("3g2" "3gp" "asf" "asx" "avi" "divx" "drc" "dvb" "evo" "f4p"
     "f4v" "flv" "h264" "h265" "hevc" "m2ts" "m2v" "mkv" "mov" "mp4"
