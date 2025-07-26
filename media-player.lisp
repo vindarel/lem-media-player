@@ -17,16 +17,18 @@
   (ql:quickload "str"))
 
 (defvar *player* nil
-  "top-level player. We can also use more than one player instance.")
+  "top-level player. We could also use more than one player instance.")
 
-(defun ensure-top-level-player ()
+(defun ensure-player ()
   (unless *player*
-    (setf *player* (make-instance 'player))))
+    (setf *player* (make-instance 'player)))
+  *player*)
 
 ;;;
 ;;; parameters
 ;;;
 
+;; DEVEL: we might not use these params yet, we copied ready-player ;)
 (defparameter *supported-video*
   '("3g2" "3gp" "asf" "asx" "avi" "divx" "drc" "dvb" "evo" "f4p"
     "f4v" "flv" "h264" "h265" "hevc" "m2ts" "m2v" "mkv" "mov" "mp4"
@@ -93,7 +95,7 @@ for configuration."
 (defparameter *mpv-args* '()
   "User definable additional arguments to run mpv.")
 
-(defvar *debug* nil)
+(defparameter *debug* t)
 
 (defun mpv-command (args)
   "Build up a mpv command to be run with uiop."
@@ -102,8 +104,8 @@ for configuration."
           (uiop:ensure-list (mpv-input-ipc))
           *mpv-args* args))
 
-(defun play (file &optional player)
-  "Play this file in the background.
+(defun play (file &optional (player (ensure-player)))
+  "Play this file or directory in the background.
 
   Return the PLAYER instance.
 
@@ -142,7 +144,7 @@ for configuration."
     (setf p (uiop:launch-program (mpv-command (uiop:native-namestring file)))))
   player)
 
-(defun send-command (s &optional player)
+(defun send-command (s &optional (player (ensure-player)))
   (let ((error-string
           (with-output-to-string (error-output)
             (uiop:run-program (print (format nil "echo ~a | socat - ~a" s (socket player)))
@@ -155,17 +157,15 @@ for configuration."
           (error "~a" error-string)
           error-string))))
 
-(defun toggle-pause (player)
-  (send-command "'{ \"command\": [\"cycle\", \"pause\"] }'"
-                player)
+(defun toggle-pause (&optional (player (ensure-player)))
+  (send-command "'{ \"command\": [\"cycle\", \"pause\"] }'" player)
   player)
 
-(defun quit (player)
-  (send-command "'{ \"command\": [\"quit\"] }'"
-                player)
+(defun quit (&optional (player (ensure-player)))
+  (send-command "'{ \"command\": [\"quit\"] }'" player)
   player)
 
-(defun stop (player)
-  (send-command "'{ \"command\": [\"stop\"] }'"
-                player)
+(defun stop (&optional (player (ensure-player)))
+  (send-command "'{ \"command\": [\"stop\"] }'" player)
+  player)
   player)
